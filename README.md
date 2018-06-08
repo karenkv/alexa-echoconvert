@@ -85,6 +85,16 @@ This workshop will teach you the following:
   - Hit Save Model and then click Build Model
   
 ## Configuring the skill 
-
-
-  
+- Now that the interaction model has been built successfully, we will set a web service endpoint to handle skill requests
+- Scroll down and click on Endpoint
+  - We will be using AWS Lambda for this section, so select that option
+- Now navigate to https://aws.amazon.com/ and under the My Account tab, click on AWS Mangagement Console
+  - You can now use the search bar to find the Lambda service
+- Once you are in the Lambda Mangagement Console, click Create function
+  - We will be building our function from scratch
+  - Choose a name for your function. I named mine ```echoconvertFunction```
+  - Set your runtime to Python 3.6 or whichever you are most comfortable with, but I am coding in Python
+  - Under role, you can create a new role from the template(s)
+    - Enter a name for your new role. Mine is called ```AlexaSkill```
+    - Under policy templates, choose Simple Microservice permissions
+  - Click Create function
