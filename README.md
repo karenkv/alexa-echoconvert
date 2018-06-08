@@ -10,7 +10,7 @@ Additionally, we will incorporating three types of binary forms for the user to 
 
 ### Goals
 
-This workshop will teach you the following:
+This tutorial will teach you the following:
 - Create an Amazon Alexa skill
 - Work with utterances, intents, and slots
 - Understand the architecture of an Alexa skill
@@ -98,3 +98,4 @@ This workshop will teach you the following:
     - Enter a name for your new role. Mine is called ```AlexaSkill```
     - Under policy templates, choose Simple Microservice permissions
   - Click Create function
+  
