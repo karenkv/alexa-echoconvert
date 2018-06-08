@@ -98,4 +98,28 @@ This tutorial will teach you the following:
     - Enter a name for your new role. Mine is called ```AlexaSkill```
     - Under policy templates, choose Simple Microservice permissions
   - Click Create function
-  
+- Afterwards, go back to the Alexa Skills developer console to retrieve your Skill ID
+- Copy and paste your ID into the Alexa Skills Kit trigger and hit save
+
+## Code Rundown
+- A template of the code has been included in this repository so open that in any text editor you wish to you use
+- Running through the skeleton, there are five (5) main sections:
+  - Helpers that build the responses
+  - Functions that control how the skill behaves
+  - Managing events
+  - The main handler
+  - Functions used to convert
+- Within each section, a quick overview of what each function does:
+  - ```build_speechlet_response(title, output, reprompt_text, should_end_session)```: builds the json for the speechlet response
+  - ```build_response(session_attributes, speechlet_response)```: builds the json for the actual response
+  - ```get_welcome_response()```: returns the build response for what Alexa tells the user when the invoke the skill
+  - ```handle_session_end_request()```: returns the build response that ends the skill's session
+  - ```get_..._number(intent,session)```: these return the build response to get the type of number that the user wants
+  - ```on_launch(launch_request, session)```: this gets the welcome response
+  - ```on_intent(intent_request, session)```: this gets the intent's response
+  - ```lambda_handler(event, context)```: this handles how lambda acts
+  - ```convertToDecimal(n, binType)```: this converts the type of binary number indicated to decimal form
+  - ```convertToBinary(n)```: for simplicity, this only converts to signed binary with which we can the manipulate for unsigned and two's complement
+  - ```twosComp(n)```: returns the two's complement of a binary number
+    - Note: the binary number needs to be in signed for for the function to work properly
+    
