@@ -50,9 +50,41 @@ This workshop will teach you the following:
 - Now that your skills has now been built, we can create the skill's invocation name under the Invocation tab
   - The invocation name is the way the user will begin an interaction with a particular custom skill
     - In other words, this is the name we use when we talk to Alexa
-    - I will be naming my invocation "echoconvert"
+    - I will be naming my invocation ```echoconvert```
 - Hit Save Model at the top and select Intents in the left menu
 
-## Intents
+## Adding intents
 
--
+- An intent is how Alexa handles the request that the user makes to Alexa
+- Click Add Intent and for this skill, we will need to create six (6) intents:
+  - GetDecimalIntentUnsigned
+  - GetDecimalIntentSigned
+  - GetDecimalIntentTwosComp
+  - GetUnsignedBinaryIntent
+  - GetSignedBinaryIntent
+  - GetTwosCompBinaryIntent
+- For each intent, we can customize its utterances and slots
+  - Uterances are how the user would speak to Alexa
+  - Slots are the variables that you'd want your user to fill in when making an utterance
+- For each intent, we will be adding custom slots:
+  - For the get decimal intents, add a custom slot called ```BinaryNumber```
+  - For the get binary intents, add a custom slot called ```DecimalNumber```
+  - Choose for the two slots, the prebuilt slot type ```AMAZON.SearchQuery```
+    - The reason we use search query rather than number for the slot type is that we want the entire number that the user inputs
+    - Amazon Alexa cuts off the leading zeros, which is important especially when we convert from binary to decimal, when the slot type is AMAZON.number
+- Now that the intents are added, we can define some sample utterances
+  - To keep it simple, for the get decimal intents we will be adding the following utterances according to which binary type the intent is:  
+  ```What is decimal number {DecimalNumber} in unsigned binary form```  
+  ```What is decimal number {DecimalNumber} in signed binary form```  
+  ```What is decimal number {DecimalNumber} in two's complement binary form```  
+  - and for the get binary intents:  
+  ```What is unsigned binary number {BinaryNumber} in decimal form```  
+  ```What is signed binary number {BinaryNumber} in decimal form```  
+  ```What is two's complement binary number {BinaryNumber} in decimal form```  
+  - Feel free to add more than just these. The more you add, the better the UX will be because they will have more options
+  - Hit Save Model and then click Build Model
+  
+## Configuring the skill 
+
+
+  
