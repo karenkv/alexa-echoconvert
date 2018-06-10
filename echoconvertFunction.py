@@ -1,5 +1,5 @@
 # Author: Karen Vu
-# Date: June 7, 2018
+# Date: May 23, 2018
 # This code is for an Amazon Alexa skill that converts binary numbers to decimal
 # or decimal numbers to binary. As a reference, this code was based off of
 # the sample skill created by Amazon during a workshop I attended.
@@ -47,7 +47,11 @@ def get_welcome_response():
     """
     session_attributes = {}
     card_title = "Welcome"
-    speech_output = "Welcome to the Echoconvert skill."
+    speech_output = "Welcome to the Echoconvert skill. " \
+                    "Try asking for a decimal conversion to binary by asking, " \
+                    "\"What is decimal number -25 in signed binary form?\", " \
+                    "or for a binary conversion to decimal form by asking, " \
+                    "\"What is signed binary number 111001 in decimal form?\""
 
     # If the user either does not reply to the welcome message or says something
     # that is not understood, they will be prompted again with this text.
