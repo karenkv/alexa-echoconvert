@@ -127,8 +127,8 @@ This tutorial will teach you the following:
   - And where it says ```DECIMAL_NUMBER```, you want to set that equal to ``` 'DecimalNumber' ``` or whatever you named your slot for decimal number input
 - Moving onto coding the converter functions, for the conversion to decimal form, the function takes in a string named ```n```, which is the binary number taken from the intent request, and another string named ```binType```, which is the binary number's type
   - To convert from binary to decimal, starting from the far right and with base 0, you want to add to your sum 2 to that base times the value in that place
-    - For example, the binary number 1011 = 1*2^0 + 1*2^1 + 0*2^2 + 1*2^3 = 1 + 2 + 8 = 11
-  - Coding-wise, first you want to convert the binary number to a list and store it in "temp" so we can iterate through it later:  
+    - For example, the binary number 1011 = 1 * 2^0 + 1 * 2^1 + 0 * 2^2 + 1 * 2^3 = 1 + 2 + 8 = 11
+  - Coding-wise, first you want to convert the binary number to a list and store it in a variable named "temp" so we can iterate through it later:  
     ```python
     temp = list(n)
     ```  
@@ -152,4 +152,45 @@ This tutorial will teach you the following:
             t = twosComp(n)
             temp = list(t)
             sign = "-"
+    ```  
+  - Now you want to create to to variables "d" and "base" and set them equal to 0
+    - d is what we will be using to store our sum and base keeps track of what exponent we are on
+  ```python
+  d = 0
+  base = 0
+  ```  
+  - Iterating through the temporary list we created earlier in reverse, you want to add to d 2 to the base times the value i in temp and then increment the base by one
+  ```python
+  for i in reversed(temp):
+        d += 2**base * int(i)
+        base += 1
+  ```
+  - Now you want to check again the binary type and only return the sign if it is signed or a two's complement. If it is unsigned, you can return d as is.
+  ```python
+  if binType == "signed" or binType == "twos":
+        return sign + str(d)
+    return str(d)
+    ```
+  - Altogether, your function should look as follows:
+  ```python
+  def convertToDecimal(n, binType):
+    temp = list(n)
+    sign = "+"
+    if binType == "signed":
+        if(temp[0] == "1"):
+            sign = "-"
+        temp = temp[1:]
+    if binType == "twos":
+        if(temp[0] == "1"):
+            t = twosComp(n)
+            temp = list(t)
+            sign = "-"
+    d = 0
+    base = 0
+    for i in reversed(temp):
+        d += 2**base * int(i)
+        base += 1
+    if binType == "signed" or binType == "twos":
+        return sign + str(d)
+    return str(d)
     ```
