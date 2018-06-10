@@ -1,10 +1,5 @@
 # Amazon Alexa Skill: Binary and Decimal Converter
 
-### Video Tutorial  
-
-[![Video Tutorial](https://img.youtube.com/vi/1yA2gIhINfE/0.jpg)](https://www.youtube.com/watch?v=1yA2gIhINfE "Amazon Alexa Tutorial: Binary-Decimal Converter")  
-https://www.youtube.com/watch?v=1yA2gIhINfE
-
 ## About
 
 In this tutorial, we will be creating an Amazon Alexa skill that converts from binary form to decimal form and vice versa.
