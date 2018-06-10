@@ -2,7 +2,7 @@
 
 ## About
 
-In this workshop, we will be creating an Amazon Alexa skill that converts from binary form to decimal form and vice versa.
+In this tutorial, we will be creating an Amazon Alexa skill that converts from binary form to decimal form and vice versa.
 Additionally, we will incorporating three types of binary forms for the user to choose from:
 - Unsigned
 - Signed
