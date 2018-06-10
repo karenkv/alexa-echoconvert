@@ -282,7 +282,7 @@ This tutorial will teach you the following:
       }
   ```
   - For each one, you want to first check if the slot is in the intent response's slot value. if it is, continue. Otherwise, output that Alexa doesn't understand and the should end session is set to false.
-  - For the decimal numbers, all the functions will look the same. If the BINARY_NUMBER is in the intent['slots'], you set the binary number equal to the value at that slot and you use the decimal converter. You then output that the binary number is that value and you set the end session to true.
+  - For the decimal numbers, all the functions will look the similar. If the BINARY_NUMBER is in the intent['slots'], you set the binary number equal to the value at that slot and you use the decimal converter. You then output that the binary number is that value and you set the end session to true.
     - For example, for the get_unsigned_decimal_number function, it will look like so:
     ```python
     def get_unsigned_decimal_number(intent, session):
@@ -304,36 +304,43 @@ This tutorial will teach you the following:
       return build_response(session_attributes, build_speechlet_response(
           intent['name'], speech_output, reprompt_text, should_end_session))
     ```
-  - For the binary numbers, it will slightly vary. The set-up is the same as the decimal number. If the DECIMAL_NUMBER is in the intent['slots'], you set the decimal number equal to that value. For the signed and two's complement binary conversion, you use the converter as it is, but for unsigned, you strip the first index.
-    - Using the signed function as a basis:
+    - For the other two types, you will change the following line of code so that unsigned is signed or twos:
     ```python
-    def get_signed_decimal_number(intent, session):
+    decimal_number = convertToDecimal(binary_number, "unsigned")
+    ```
+  - For binary numbers, the functions will slightly vary. The set up is the same as for getting decimal numbers, but you will want to manipulate the conversion to binary since it returns a signed binary number.
+    - For a basis, the signed binary looks like this:
+    ```python
+    def get_signed_binary_number(intent, session):
       session_attributes = {}
 
       reprompt_text = None
 
-      #TODO: Convert binary to decimal
-      if BINARY_NUMBER in intent['slots']:
-          binary_number = intent['slots'][BINARY_NUMBER]['value']
-          decimal_number = convertToDecimal(binary_number, "signed")
-          speech_output = "Signed binary number " + binary_number + " is " + decimal_number + " in decimal form."
+      #TODO: Convert decimal to binary
+      if DECIMAL_NUMBER in intent['slots']:
+          decimal_number = intent['slots'][DECIMAL_NUMBER]['value']
+          binary_number = convertToBinary(int(decimal_number))
+          speech_output = "Decimal number " + decimal_number + " is " + binary_number + " in signed binary form."
           should_end_session = True
       else:
           speech_output = "I'm not sure what you meant by that. Please try again."
           should_end_session = False
+
+
+      return build_response(session_attributes, build_speechlet_response(
+          intent['name'], speech_output, reprompt_text, should_end_session))
     ```
-    - For the other two binary types, you will change the following line of code:
-      ```python
-      decimal_number = convertToDecimal(binary_number, "signed")
-      ```
-    - For two's complement, you change it to
-      ```python
-      decimal_number = convertToDecimal(binary_number, "twos")
-      ```
-    - For unsigned, you change it to
-      ```python
-      binary_number = convertToBinary(int(decimal_number))[1:]
-      ```
+    - For unsigned, you want to strip binary_number so that it is
+    ```python
+    binary_number = convertToBinary(int(decimal_number))[1:]
+    ```
+    - And for two's complement, you want to check if the sign of decimal number is "-" and if it is twos complement it, replacing the 1 of the binary number as 0.
+    ```python
+    binary_number = convertToBinary(int(decimal_number))
+        if decimal_number[0] == "-":
+            bin = twosComp("0"+binary_number[1:])
+            binary_number = bin
+    ```
 - The final version of the code is included in the repository for reference.
 - Saving the code, copy and paste it to the Lambda editor and click save.
 - Double check that your location is in N.Virginia and that your ARN located at the top right, or Amazon Resource Name, has us-east-1 is in because this is the only physical location in AWS for Alexa Skills so far. 
