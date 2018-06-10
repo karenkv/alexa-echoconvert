@@ -212,8 +212,7 @@ This tutorial will teach you the following:
   ```
 - The final function is the two's complement, which takes in a binary number in string form
   - To two's complement a number, you want to change all the 1's to 0's and vice versa and then binary add a 1.
-  ```python
-  - To do this, we first change the string n to a list and store it in temp and then iterate through temp and change these values from 0 to 1 or 1 to 0
+  - To do this, we first change the string n to a list and store it in temp and then iterate through temp and change these values from 0 to 1 or 1 to 0  
   ```python
   temp = list(n)
     for i in range(len(temp)):
@@ -221,14 +220,14 @@ This tutorial will teach you the following:
             temp[i] = "0"
         else:
             temp[i] = "1"
-            ```
-  - Next, we have a carry variable set to 1 and a "twos" variable set to an empty string. You then reverse temp to iterate through it backwards.
+  ```
+  - Next, we have a carry variable set to 1 and a "twos" variable set to an empty string. You then reverse temp to iterate through it backwards.  
   ```python
   carry = 1
     twos = ""
     temp.reverse()
     ```
-  - Iterating through the list, you want to add a string 0 to twos if the carry is 1 and the value in temp is 1 or if they are both 0. If not, you add a 1 and only change the carry to 0 if the carry is originally 1 and the value is 0.
+  - Iterating through the list, you want to add a string 0 to twos if the carry is 1 and the value in temp is 1 or if they are both 0. If not, you add a 1 and only change the carry to 0 if the carry is originally 1 and the value is 0.  
   ```python
   for j in temp:
         if carry == 1 and j == "1":
@@ -241,7 +240,7 @@ This tutorial will teach you the following:
         elif carry == 0 and j == "0":
             twos += "0"
             ```
-  - Afterwards, you return twos reversed.
+  - Afterwards, you return twos reversed.  
   ```python
   return twos[::-1]
   ```
