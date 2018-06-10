@@ -113,6 +113,7 @@ This tutorial will teach you the following:
   - ```build_speechlet_response(title, output, reprompt_text, should_end_session)```: builds the json for the speechlet response
   - ```build_response(session_attributes, speechlet_response)```: builds the json for the actual response
   - ```get_welcome_response()```: returns the build response for what Alexa tells the user when the invoke the skill
+    - Note: You are welcome to add to the welcome response to let Alexa give the user templates of what to ask her.
   - ```handle_session_end_request()```: returns the build response that ends the skill's session
   - ```get_..._number(intent,session)```: these return the build response to get the type of number that the user wants
   - ```on_launch(launch_request, session)```: this gets the welcome response
@@ -267,5 +268,82 @@ This tutorial will teach you the following:
         elif carry == 0 and j == "0":
             twos += "0"
     return twos[::-1]
+- Now that we have created our converter functions, we can work on creating the functions to handle our skill's behavior.
+  - First off, the intent should look something like this:
+  ```json
+    intent: {
+      ...
+      'slots': {
+        'BinaryNumber': {
+          'name': 'BinaryNumber',
+          'value': '-15'
+          }
+        }
+      }
+  ```
+  - For each one, you want to first check if the slot is in the intent response's slot value. if it is, continue. Otherwise, output that Alexa doesn't understand and the should end session is set to false.
+  - For the decimal numbers, all the functions will look the same. If the BINARY_NUMBER is in the intent['slots'], you set the binary number equal to the value at that slot and you use the decimal converter. You then output that the binary number is that value and you set the end session to true.
+    - For example, for the get_unsigned_decimal_number function, it will look like so:
+    ```python
+    def get_unsigned_decimal_number(intent, session):
+      session_attributes = {}
+
+      reprompt_text = None
+
+      #TODO: Convert binary to decimal
+      if BINARY_NUMBER in intent['slots']:
+          binary_number = intent['slots'][BINARY_NUMBER]['value']
+          decimal_number = convertToDecimal(binary_number, "unsigned")
+          speech_output = "Unsigned binary number " + binary_number + " is " + decimal_number + " in decimal form."
+          should_end_session = True
+      else:
+          speech_output = "I'm not sure what you meant by that. Please try again."
+          should_end_session = False
+
+
+      return build_response(session_attributes, build_speechlet_response(
+          intent['name'], speech_output, reprompt_text, should_end_session))
     ```
-  
+  - For the binary numbers, it will slightly vary. The set-up is the same as the decimal number. If the DECIMAL_NUMBER is in the intent['slots'], you set the decimal number equal to that value. For the signed and two's complement binary conversion, you use the converter as it is, but for unsigned, you strip the first index.
+    - Using the signed function as a basis:
+    ```python
+    def get_signed_decimal_number(intent, session):
+      session_attributes = {}
+
+      reprompt_text = None
+
+      #TODO: Convert binary to decimal
+      if BINARY_NUMBER in intent['slots']:
+          binary_number = intent['slots'][BINARY_NUMBER]['value']
+          decimal_number = convertToDecimal(binary_number, "signed")
+          speech_output = "Signed binary number " + binary_number + " is " + decimal_number + " in decimal form."
+          should_end_session = True
+      else:
+          speech_output = "I'm not sure what you meant by that. Please try again."
+          should_end_session = False
+    ```
+    - For the other two binary types, you will change the following line of code:
+      ```python
+      decimal_number = convertToDecimal(binary_number, "signed")
+      ```
+    - For two's complement, you change it to
+      ```python
+      decimal_number = convertToDecimal(binary_number, "twos")
+      ```
+    - For unsigned, you change it to
+      ```python
+      binary_number = convertToBinary(int(decimal_number))[1:]
+      ```
+- The final version of the code is included in the repository for reference.
+- Saving the code, copy and paste it to the Lambda editor and click save.
+- Double check that your location is in N.Virginia and that your ARN located at the top right, or Amazon Resource Name, has us-east-1 is in because this is the only physical location in AWS for Alexa Skills so far. 
+  - This is something that Amazon stresses because your skill won't work if it isn't configured correctly.
+- Once you have your ARN, in the Default Region box in your developer tab, paste the ARN and click Save Endpoints.
+
+## Testing
+- Now that you've completed all this, you can click the Build tab and doublecheck that the checklist is filled out. 
+- Then click the Test tab.
+- You want to ensure that test is enabled for the skill.
+- Open the skill by typing in "open echoconvert".
+- Now you can ask Alexa one of the utterances we created earlier such as ```What is decimal number -15 in two's complement binary form?```
+- Congrats! You've officially completed your skill.
