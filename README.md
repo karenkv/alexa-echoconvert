@@ -125,7 +125,8 @@ This tutorial will teach you the following:
 - Now actually working on the code, first there are a few things we will be adding at the top:
   - Where it says ```BINARY_NUMBER```, you want to set that equal to ``` 'BinaryNumber' ``` or whatever you named your slot for binary number input
   - And where it says ```DECIMAL_NUMBER```, you want to set that equal to ``` 'DecimalNumber' ``` or whatever you named your slot for decimal number input
-- Moving onto coding the converter functions, for the conversion to decimal form, the function takes in a string named ```n```, which is the binary number taken from the intent request, and another string named ```binType```, which is the binary number's type
+- Moving onto coding the converter functions, I want to put a disclaimer that there are built-in ways to convert to and from binary in python, but for educational purposes, we will be doing these conversions ourselves.
+- For the conversion to decimal form, the function takes in a string named ```n```, which is the binary number taken from the intent request, and another string named ```binType```, which is the binary number's type
   - To convert from binary to decimal, starting from the far right and with base 0, you want to add to your sum 2 to that base times the value in that place
     - For example, the binary number 1011 = 1 * 2^0 + 1 * 2^1 + 0 * 2^2 + 1 * 2^3 = 1 + 2 + 8 = 11
   - Coding-wise, first you want to convert the binary number to a list and store it in a variable named "temp" so we can iterate through it later:  
@@ -194,3 +195,78 @@ This tutorial will teach you the following:
         return sign + str(d)
     return str(d)
     ```
+- Working on converting to signed binary now, the function takes in one variable, n, which is the decimal number to be converted.
+  - To convert from decimal to binary, you want to continuously find the largest base 2 number, keeping track if your remainder is divisible by 2 and if it is, keep a 1 in its place at that base.
+  - To do so in code, if your number is less than 0, return 1 + the -n conversion, stripping the first index
+  - If it's 0, simply return 0
+  - If it's neither negative nor 0, recursively floor divide your n by 2 and add the modulus by two
+  - Your function should look like this, following the steps above:
+  ```python
+  def convertToBinary(n):
+    if n < 0:
+        return '1' + convertToBinary(-n)[1:]
+    elif n == 0:
+        return '0'
+    else:
+        return convertToBinary(n//2) + str(n%2)
+  ```
+- The final function is the two's complement, which takes in a binary number in string form
+  - To two's complement a number, you want to change all the 1's to 0's and vice versa and then binary add a 1.
+  ```python
+  - To do this, we first change the string n to a list and store it in temp and then iterate through temp and change these values from 0 to 1 or 1 to 0
+  ```python
+  temp = list(n)
+    for i in range(len(temp)):
+        if temp[i] == "1":
+            temp[i] = "0"
+        else:
+            temp[i] = "1"
+            ```
+  - Next, we have a carry variable set to 1 and a "twos" variable set to an empty string. You then reverse temp to iterate through it backwards.
+  ```python
+  carry = 1
+    twos = ""
+    temp.reverse()
+    ```
+  - Iterating through the list, you want to add a string 0 to twos if the carry is 1 and the value in temp is 1 or if they are both 0. If not, you add a 1 and only change the carry to 0 if the carry is originally 1 and the value is 0.
+  ```python
+  for j in temp:
+        if carry == 1 and j == "1":
+            twos += "0"
+        elif carry == 1 and j == "0":
+            twos += "1"
+            carry = 0
+        elif carry == 0 and j == "1":
+            twos += "1"
+        elif carry == 0 and j == "0":
+            twos += "0"
+            ```
+  - Afterwards, you return twos reversed.
+  ```python
+  return twos[::-1]
+  ```
+  - Putting this together, your final function looks as follows:  
+  ```python
+  def twosComp(n):
+    temp = list(n)
+    for i in range(len(temp)):
+        if temp[i] == "1":
+            temp[i] = "0"
+        else:
+            temp[i] = "1"
+    carry = 1
+    twos = ""
+    temp.reverse()
+    for j in temp:
+        if carry == 1 and j == "1":
+            twos += "0"
+        elif carry == 1 and j == "0":
+            twos += "1"
+            carry = 0
+        elif carry == 0 and j == "1":
+            twos += "1"
+        elif carry == 0 and j == "0":
+            twos += "0"
+    return twos[::-1]
+    ```
+  
