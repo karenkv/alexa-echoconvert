@@ -4,7 +4,7 @@
 # or decimal numbers to binary. As a reference, this code was based off of
 # the sample skill created by Amazon during a workshop I attended.
 
-BINARY_NUMBER = 
+BINARY_NUMBER =
 DECIMAL_NUMBER =
 
 # --------------- Helpers that build all of the responses ----------------------
@@ -74,7 +74,14 @@ def get_unsigned_decimal_number(intent, session):
     reprompt_text = None
 
     #TODO: Convert binary to decimal
-
+    if BINARY_NUMBER in intent['slots']:
+        binary_number = intent['slots'][BINARY_NUMBER]['value']
+        decimal_number =
+        speech_output =
+        should_end_session = True
+    else:
+        speech_output = "I'm not sure what you meant by that. Please try again."
+        should_end_session = False
 
 
     return build_response(session_attributes, build_speechlet_response(
@@ -86,7 +93,14 @@ def get_unsigned_binary_number(intent, session):
     reprompt_text = None
 
     #TODO: Convert decimal to binary
-
+    if DECIMAL_NUMBER in intent['slots']:
+        decimal_number = intent['slots'][DECIMAL_NUMBER]['value']
+        binary_number =
+        speech_output =
+        should_end_session = True
+    else:
+        speech_output = "I'm not sure what you meant by that. Please try again."
+        should_end_session = False
 
 
     return build_response(session_attributes, build_speechlet_response(
@@ -98,7 +112,14 @@ def get_signed_decimal_number(intent, session):
     reprompt_text = None
 
     #TODO: Convert binary to decimal
-
+    if BINARY_NUMBER in intent['slots']:
+        binary_number = intent['slots'][BINARY_NUMBER]['value']
+        decimal_number =
+        speech_output =
+        should_end_session = True
+    else:
+        speech_output = "I'm not sure what you meant by that. Please try again."
+        should_end_session = False
 
 
     return build_response(session_attributes, build_speechlet_response(
@@ -110,7 +131,14 @@ def get_signed_binary_number(intent, session):
     reprompt_text = None
 
     #TODO: Convert decimal to binary
-
+    if DECIMAL_NUMBER in intent['slots']:
+        decimal_number = intent['slots'][DECIMAL_NUMBER]['value']
+        binary_number =
+        speech_output =
+        should_end_session = True
+    else:
+        speech_output = "I'm not sure what you meant by that. Please try again."
+        should_end_session = False
 
 
     return build_response(session_attributes, build_speechlet_response(
@@ -122,7 +150,14 @@ def get_twoscomp_decimal_number(intent, session):
     reprompt_text = None
 
     #TODO: Convert binary to decimal
-
+    if BINARY_NUMBER in intent['slots']:
+        binary_number = intent['slots'][BINARY_NUMBER]['value']
+        decimal_number =
+        speech_output =
+        should_end_session = True
+    else:
+        speech_output = "I'm not sure what you meant by that. Please try again."
+        should_end_session = False
 
 
     return build_response(session_attributes, build_speechlet_response(
@@ -134,12 +169,18 @@ def get_twoscomp_binary_number(intent, session):
     reprompt_text = None
 
     #TODO: Convert decimal to binary
-
+    if DECIMAL_NUMBER in intent['slots']:
+        decimal_number = intent['slots'][DECIMAL_NUMBER]['value']
+        binary_number =
+        speech_output =
+        should_end_session = True
+    else:
+        speech_output = "I'm not sure what you meant by that. Please try again."
+        should_end_session = False
 
 
     return build_response(session_attributes, build_speechlet_response(
         intent['name'], speech_output, reprompt_text, should_end_session))
-
 # --------------- Events ------------------
 
 
