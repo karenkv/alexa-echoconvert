@@ -122,4 +122,34 @@ This tutorial will teach you the following:
   - ```convertToBinary(n)```: for simplicity, this only converts to signed binary with which we can the manipulate for unsigned and two's complement
   - ```twosComp(n)```: returns the two's complement of a binary number
     - Note: the binary number needs to be in signed for for the function to work properly
-    
+- Now actually working on the code, first there are a few things we will be adding at the top:
+  - Where it says ```BINARY_NUMBER```, you want to set that equal to ``` 'BinaryNumber' ``` or whatever you named your slot for binary number input
+  - And where it says ```DECIMAL_NUMBER```, you want to set that equal to ``` 'DecimalNumber' ``` or whatever you named your slot for decimal number input
+- Moving onto coding the converter functions, for the conversion to decimal form, the function takes in a string named ```n```, which is the binary number taken from the intent request, and another string named ```binType```, which is the binary number's type
+  - To convert from binary to decimal, starting from the far right and with base 0, you want to add to your sum 2 to that base times the value in that place
+    - For example, the binary number 1011 = 1*2^0 + 1*2^1 + 0*2^2 + 1*2^3 = 1 + 2 + 8 = 11
+  - Coding-wise, first you want to convert the binary number to a list and store it in "temp" so we can iterate through it later:  
+    ```python
+    temp = list(n)
+    ```  
+  - Next, you will have a string named "sign" that's default to "+" and check if the binType is signed or twos  
+    ```python 
+    sign = "+"
+    ```  
+    -  If it is signed, the first value of the binary number will indicate if it is positive or negative.
+      - If the value at index 0 of the temporary list we created is a 1 and if it is, change the sign to "-". Otherwise, leave it as "+".
+      - Then you want you want to strip the list of its first value.  
+    ```python
+    if binType == "signed":
+        if(temp[0] == "1"):
+            sign = "-"
+        temp = temp[1:]
+    ```
+    - If it is a two's complement number, you want to again check if the value at index 0 is 1 and if it is, two's complement it and set the sign to "-"  
+    ```python
+    if binType == "twos":
+        if(temp[0] == "1"):
+            t = twosComp(n)
+            temp = list(t)
+            sign = "-"
+    ```
